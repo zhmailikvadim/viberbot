@@ -152,12 +152,13 @@ bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => {
 
     console.log(url);
 
-    qrCode.saveImage({path:url,});
+    qrCode.saveImage({path:url});
 
     let pictureMessage = new PictureMessage(qrCode.toDataURL());
     response.send(new TextMessage("Ваш QR КОД:"));
-    //let url_send = 'http://localhost:3000/'+ url.
-    //response.send(new PictureMessage(url_send));
+    let url_send = 'https://denscan.belsap.com/qr/' + url;
+    console.log(url_send);
+    response.send(new PictureMessage(url_send));
   }
 });
 const port = process.env.PORT || 3000;
@@ -165,7 +166,7 @@ app.use("/viber/webhook", bot.middleware());
 app.listen(port, () => {
   console.log(`Application running on port: ${port}`);
   bot
-    .setWebhook(`https://5b4a-46-56-85-155.ngrok.io/viber/webhook`)
+    .setWebhook(`https://5032-46-56-85-155.ngrok.io/viber/webhook`)
     .catch((error) => {
       console.log("Can not set webhook on following server. Is it running?");
       console.error(error);
